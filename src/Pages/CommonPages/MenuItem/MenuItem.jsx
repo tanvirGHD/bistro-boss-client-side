@@ -6,7 +6,7 @@ const MenuItem = ({ item }) => {
             <div className="flex-1">
                 <h3 className="text-lg font-bold mb-2 uppercase">{name} ---------</h3>
                 <p className="text-gray-600 mb-2">{recipe}</p>
-                <p className="text-yellow-500 font-semibold">${price}</p>
+                <p className="text-yellow-500 font-semibold">price: ${price}</p>
             </div>
         </div>
     );
