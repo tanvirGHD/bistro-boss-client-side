@@ -12,38 +12,56 @@ import slide3 from "../../../assets/home/slide3.jpg";
 import slide4 from "../../../assets/home/slide4.jpg";
 import slide5 from "../../../assets/home/slide5.jpg";
 
+
 const Category = () => {
   return (
-    <Swiper
-      slidesPerView={4}
-      spaceBetween={20}
-      pagination={{
-        clickable: true,
-      }}
-      modules={[Pagination]}
-      className="mySwiper max-w-screen-lg mx-auto my-10 "
-    >
-      <SwiperSlide>
-        <img src={slide1} alt="" />
-        <h3 className="text-3xl uppercase text-center -mt-16 text-white">Salads</h3>
-      </SwiperSlide>
-      <SwiperSlide>
-        <img src={slide2} alt="" />
-        <h3 className="text-3xl uppercase text-center -mt-16 text-white">Soups</h3>
-      </SwiperSlide>
-      <SwiperSlide>
-        <img src={slide3} alt="" />
-        <h3 className="text-3xl uppercase text-center -mt-16 text-white">pizzas</h3>
-      </SwiperSlide>
-      <SwiperSlide>
-        <img src={slide4} alt="" />
-        <h3 className="text-3xl uppercase text-center -mt-16 text-white">desserts</h3>
-      </SwiperSlide>
-      <SwiperSlide>
-        <img src={slide5} alt="" />
-        <h3 className="text-3xl uppercase text-center -mt-16 text-white">Salads</h3>
-      </SwiperSlide>
-    </Swiper>
+    <section>
+      <div className="text-center md:w-3/12 mx-auto mt-10">
+      <p className="text-xl text-yellow-400 ">---From 11:00am to 10:00pm---</p>
+      <h3 className="text-3xl border-y-2 py-2">ORDER ONLINE</h3>
+      </div>
+
+      <Swiper
+        slidesPerView={4}
+        spaceBetween={20}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper max-w-screen-lg mx-auto my-10 "
+      >
+        <SwiperSlide>
+          <img src={slide1} alt="" />
+          <h3 className="text-3xl uppercase text-center -mt-16 text-white">
+            Salads
+          </h3>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={slide2} alt="" />
+          <h3 className="text-3xl uppercase text-center -mt-16 text-white">
+            Soups
+          </h3>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={slide3} alt="" />
+          <h3 className="text-3xl uppercase text-center -mt-16 text-white">
+            pizzas
+          </h3>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={slide4} alt="" />
+          <h3 className="text-3xl uppercase text-center -mt-16 text-white">
+            desserts
+          </h3>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={slide5} alt="" />
+          <h3 className="text-3xl uppercase text-center -mt-16 text-white">
+            Salads
+          </h3>
+        </SwiperSlide>
+      </Swiper>
+    </section>
   );
 };
 
