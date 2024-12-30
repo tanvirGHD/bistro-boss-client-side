@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
     const navLinks = (
       <>
         <li>
-          <a >Home</a>
+          <Link to='/' >Home</Link>
         </li>
         <li>
           <a >Menu</a>
@@ -17,7 +19,7 @@ const Navbar = () => {
     );
   
     return (
-      <nav className="navbar bg-base-100 shadow-lg">
+      <nav className="navbar fixed z-20 bg-opacity-30 bg-black text-white max-w-screen-2xl shadow-lg">
         {/* Navbar Start */}
         <div className="navbar-start">
           <div className="dropdown">
