@@ -27,9 +27,11 @@ const PopularMenu = () => {
             menu.map(item => <MenuItem key={item._id} item={item}></MenuItem> )
         }
     </div>
-    <p className="text-lg text-center my-10 font-semibold border-b-2 w-2/12 mx-auto rounded-2xl border-black">
-        view full menu
-    </p>
+    <div className="text-center">
+    <button className="text-lg my-10 font-semibold border-b-2 w-2/12 mx-auto rounded-2xl border-black">
+      view full menu
+    </button>
+    </div>
     </section>
   );
 };
