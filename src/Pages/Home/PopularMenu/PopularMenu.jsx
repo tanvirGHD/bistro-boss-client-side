@@ -15,7 +15,7 @@ const popular = menu.filter(item => item.category === 'popular');
         <h3 className="text-3xl border-y-2 py-2">FROM OUR MENU</h3>
       </div>
 
-    <div className="grid md:grid-cols-2 gap-5 mt-9">
+      <div className="grid md:grid-cols-2 gap-5 mt-9">
       {
         popular.map(item => <MenuItem key={item._id} item={item}></MenuItem> )
       }
