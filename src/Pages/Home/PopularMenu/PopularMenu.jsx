@@ -1,6 +1,7 @@
 
+import useMenu from "../../../hooks/useMenu";
 import MenuItem from "../../CommonPages/MenuItem/MenuItem";
-import useMenu from "../../../Hooks/useMenu";
+
 
 const PopularMenu = () => {
 const [menu] = useMenu();
@@ -21,7 +22,7 @@ const popular = menu.filter(item => item.category === 'popular');
       }
     </div>
     <div className="text-center">
-    <button className="text-lg my-10 font-semibold border-b-2 w-2/12 mx-auto rounded-2xl border-black">
+    <button className="text-lg my-10 font-semibold border-b-2 w-2/12 mx-auto rounded-2xl border-black hover:bg-black hover:text-white">
       view full menu
     </button>
     </div>

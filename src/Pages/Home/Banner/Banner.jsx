@@ -9,26 +9,42 @@ import img6 from "../../../assets/home/06.png";
 
 const Banner = () => {
   return (
-      <Carousel>
-        <div>
-          <img src={img1} />
-        </div>
-        <div>
-          <img src={img2} />
-        </div>
-        <div>
-          <img src={img3} />
-        </div>
-        <div>
-          <img src={img4} />
-        </div>
-        <div>
-          <img src={img5} />
-        </div>
-        <div>
-          <img src={img6} />
-        </div>
-      </Carousel>
+    <Carousel
+      infiniteLoop={true}
+      showStatus={false}
+      autoPlay={true}
+      interval={3000}
+      showThumbs={true}
+      renderThumbs={() =>
+        [img1, img2, img3, img4, img5, img6].map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Thumbnail ${index + 1}`}
+            className="h-[40px] w-auto object-cover mx-2"
+          />
+        ))
+      }
+    >
+      <div>
+        <img src={img1} className="h-[500px] w-full object-cover" alt="Slide 1" />
+      </div>
+      <div>
+        <img src={img2} className="h-[500px] w-full object-cover" alt="Slide 2" />
+      </div>
+      <div>
+        <img src={img3} className="h-[500px] w-full object-cover" alt="Slide 3" />
+      </div>
+      <div>
+        <img src={img4} className="h-[500px] w-full object-cover" alt="Slide 4" />
+      </div>
+      <div>
+        <img src={img5} className="h-[500px] w-full object-cover" alt="Slide 5" />
+      </div>
+      <div>
+        <img src={img6} className="h-[500px] w-full object-cover" alt="Slide 6" />
+      </div>
+    </Carousel>
   );
 };
 
