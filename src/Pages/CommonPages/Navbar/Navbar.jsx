@@ -13,13 +13,15 @@ const Navbar = () => {
           <Link to='/order/salad' > Order Food </Link>
         </li>
         <li>
-          <a >Contact</a>
+          <Link to="/login">Login</Link>
         </li>
       </>
     );
   
     return (
-      <nav className="navbar fixed z-20 bg-opacity-30 bg-black text-white max-w-screen-2xl shadow-lg">
+      <nav className="navbar sticky top-0 z-20 bg-opacity-30 bg-black text-white shadow-lg"
+
+      >
         {/* Navbar Start */}
         <div className="navbar-start">
           <div className="dropdown">
