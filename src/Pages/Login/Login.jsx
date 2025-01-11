@@ -8,6 +8,7 @@ import {
 } from "react-simple-captcha";
 import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const captchaRef = useRef(null);
@@ -41,6 +42,10 @@ const Login = () => {
   };
 
   return (
+    <>
+    <Helmet>
+        <title>Bistro Boss | Login</title>
+    </Helmet>
     <div className="card bg-blue-50 w-full max-w-4xl mx-auto mt-20 p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-center gap-6">
       {/* Animation Section */}
       <div className="flex-1 flex items-center justify-center">
@@ -125,6 +130,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
