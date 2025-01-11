@@ -1,16 +1,19 @@
-import { StrictMode } from "react";
+import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./Routes/router";
-import {HelmetProvider } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";
+import AuthProvider from "./Providers/AuthProvider";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <React.StrictMode>
     <HelmetProvider>
-      <div className="w-11/12 mx-auto">
-        <RouterProvider router={router} />
-      </div>
+      <AuthProvider>
+        <div className="w-11/12 mx-auto">
+          <RouterProvider router={router} />
+        </div>
+      </AuthProvider>
     </HelmetProvider>
-  </StrictMode>
+  </React.StrictMode>
 );
