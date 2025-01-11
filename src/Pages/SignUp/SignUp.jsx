@@ -1,19 +1,22 @@
 
 import Lottie from "react-lottie";
 import sinUpLottieData from "../../assets/Animation - 1733900703492.json";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider"; // Correct import
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  const { createUser } = useContext(AuthContext); // Correct usage
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   const onSubmit = (data) => {
     console.log(data);
@@ -21,6 +24,20 @@ const SignUp = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        updateUserProfile(data.name, data.photoURL)
+        .then(() => {
+            console.log('profile info updated')
+            reset();
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User created Successfully",
+                showConfirmButton: false,
+                timer: 1500
+            })
+            navigate('/')
+        })
+        .catch(error => console.log(error))
       })
       
   };
@@ -60,6 +77,22 @@ const SignUp = () => {
                 <span className="text-red-500 my-2">Name is required</span>
               )}
             </div>
+            {/* photo URL*/}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-blue-800 font-medium">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                {...register("photoURL", { required: true })}
+                placeholder="Photo URL"
+                className="input input-bordered border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+              />
+              {errors.photoURL && (
+                <span className="text-red-500 my-2">Photo URL is required</span>
+              )}
+            </div>
+            {/* email */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text text-blue-800 font-medium">Email</span>
