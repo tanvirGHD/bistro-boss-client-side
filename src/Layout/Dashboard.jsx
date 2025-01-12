@@ -8,11 +8,18 @@ import {
   FaShoppingCart,
   FaConciergeBell,
   FaPhoneAlt,
+  FaList,
+  FaUser,
+  FaBook,  
 } from "react-icons/fa";
 import useCart from "../Hooks/UseCart";
 
 const Dashboard = () => {
   const [cart] = useCart();
+
+  // TODO: get isAdmin value from the database
+  const isAdmin = true;
+
   return (
     <div className="flex">
       {/* Dashboard side bar */}
@@ -22,7 +29,42 @@ const Dashboard = () => {
           <h2 className="text-xl font-bold">Restaurant</h2>
         </div>
         <ul className="menu gap-5">
+          {
+            isAdmin ? <>
+            <li>
+            <NavLink to="/dashboard/user">
+              <FaHome className="inline-block mr-2" />
+              Admin Home
+            </NavLink>
+          </li>
           <li>
+            <NavLink to="/dashboard/reservation">
+              <FaRegCalendarAlt className="inline-block mr-2" />
+              add items
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/payment-history">
+              <FaList className="inline-block mr-2" ></FaList>
+              manage items
+            </NavLink>
+          </li> 
+          <li>
+            <NavLink to="/dashboard/my-booking">
+              <FaBook></FaBook>
+              Manage bookings
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/users">
+              <FaUser></FaUser>
+              All users
+            </NavLink>
+          </li>
+            </>
+            :
+            <>
+            <li>
             <NavLink to="/dashboard/user">
               <FaHome className="inline-block mr-2" />
               User Home
@@ -61,6 +103,9 @@ const Dashboard = () => {
               My Cart
             </NavLink>
           </li>
+            </>
+          }
+          {/* Common NavLinks */}
           <hr className="my-4" />
           <li>
             <NavLink to="/">
