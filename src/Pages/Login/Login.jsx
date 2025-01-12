@@ -11,6 +11,7 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../CommonPages/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -82,6 +83,7 @@ const Login = () => {
             <h2 className="text-center text-2xl font-bold text-blue-600">
               Sign In
             </h2>
+            
             {/* email */}
             <div className="form-control">
               <label className="label">
@@ -146,6 +148,7 @@ const Login = () => {
               </Link>
             </p>
           </form>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </>

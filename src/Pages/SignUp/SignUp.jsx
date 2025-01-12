@@ -1,4 +1,3 @@
-
 import Lottie from "react-lottie";
 import sinUpLottieData from "../../assets/Animation - 1733900703492.json";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,8 +6,11 @@ import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider"; // Correct import
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../CommonPages/SocialLogin/SocialLogin";
 
 const SignUp = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -16,30 +18,37 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const { createUser, updateUserProfile } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data);
-    createUser(data.email, data.password)
-      .then((result) => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
-        updateUserProfile(data.name, data.photoURL)
+    createUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      updateUserProfile(data.name, data.photoURL)
         .then(() => {
-            console.log('profile info updated')
-            reset();
-            Swal.fire({
+          //create user entry in the database
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user added to the database");
+              reset();
+              Swal.fire({
                 position: "top-end",
                 icon: "success",
                 title: "User created Successfully",
                 showConfirmButton: false,
-                timer: 1500
-            })
-            navigate('/')
+                timer: 1500,
+              });
+              navigate("/");
+            }
+          });
         })
-        .catch(error => console.log(error))
-      })
-      
+        .catch((error) => console.log(error));
+    });
   };
 
   return (
@@ -64,7 +73,9 @@ const SignUp = () => {
             {/* Name */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-blue-800 font-medium">Name</span>
+                <span className="label-text text-blue-800 font-medium">
+                  Name
+                </span>
               </label>
               <input
                 type="text"
@@ -80,7 +91,9 @@ const SignUp = () => {
             {/* photo URL*/}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-blue-800 font-medium">Photo URL</span>
+                <span className="label-text text-blue-800 font-medium">
+                  Photo URL
+                </span>
               </label>
               <input
                 type="text"
@@ -95,7 +108,9 @@ const SignUp = () => {
             {/* email */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-blue-800 font-medium">Email</span>
+                <span className="label-text text-blue-800 font-medium">
+                  Email
+                </span>
               </label>
               <input
                 type="email"
@@ -112,7 +127,9 @@ const SignUp = () => {
             {/* password */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-blue-800 font-medium">Password</span>
+                <span className="label-text text-blue-800 font-medium">
+                  Password
+                </span>
               </label>
               <input
                 type="password"
@@ -131,7 +148,9 @@ const SignUp = () => {
                 <p className="text-red-500 my-2">Password is required</p>
               )}
               {errors.password?.type === "minLength" && (
-                <p className="text-red-500 my-2">Password must be at least 6 characters</p>
+                <p className="text-red-500 my-2">
+                  Password must be at least 6 characters
+                </p>
               )}
               {errors.password?.type === "maxLength" && (
                 <p className="text-red-500 my-2">
@@ -140,7 +159,8 @@ const SignUp = () => {
               )}
               {errors.password?.type === "pattern" && (
                 <p className="text-red-500 my-2">
-                  Password must include uppercase, lowercase, number, and special characters.
+                  Password must include uppercase, lowercase, number, and
+                  special characters.
                 </p>
               )}
             </div>
@@ -165,6 +185,7 @@ const SignUp = () => {
               </Link>
             </p>
           </form>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </>
