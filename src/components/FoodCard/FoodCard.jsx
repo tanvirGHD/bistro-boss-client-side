@@ -73,18 +73,21 @@
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useCart from "../../Hooks/UseCart";
+
 
 const FoodCard = ({ item }) => {
   const { image, price, recipe, name , _id} = item;
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosSecure = useAxiosSecure();
+  const [, refetch] = useCart();
 
-  const handleAddToCart = (food) => {
+  const handleAddToCart = () => {
     if (user && user.email) {
-
-      console.log(user.email, food)
+      //send cart item to the database
       const cartItem = {
         menuId: _id,
         email: user.email,
@@ -93,7 +96,7 @@ const FoodCard = ({ item }) => {
         price
       }
 
-      axios.post('http://localhost:5000/carts', cartItem)
+      axiosSecure.post('/carts', cartItem)
       .then(res => {
         console.log(res.data)
         if(res.data.insertedId){
@@ -104,6 +107,8 @@ const FoodCard = ({ item }) => {
             showConfirmButton: false,
             timer: 1500
           });
+          //refetch the cart to update the cart items count
+          refetch();
         }
       })
     } else {
@@ -143,7 +148,7 @@ const FoodCard = ({ item }) => {
           </div>
           <div className="mt-auto">
           <button 
-        onClick={() => handleAddToCart(item)}
+        onClick={handleAddToCart}
         className="relative h-10 w-full origin-top bg-slate-200 transform rounded-lg border-2 border-sky-500 text-xl text-sky-500 before:absolute before:top-0 before:block before:h-0 before:w-full before:duration-500 hover:text-white hover:before:absolute hover:before:left-0 hover:before:-z-10 hover:before:h-full hover:before:bg-sky-500">
           Add to Cart
         </button>
