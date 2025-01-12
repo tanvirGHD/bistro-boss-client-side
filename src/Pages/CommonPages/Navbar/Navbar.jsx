@@ -28,7 +28,7 @@ const Navbar = () => {
         <Link to="secret">Secret</Link>
       </li>
       <li>
-        <Link to="/">
+        <Link to="/dashboard/cart">
           <button className="flex">
             <img className="h-10 w-12" src="https://img.icons8.com/?size=100&id=47291&format=png&color=000000" alt="" />
             <div className="badge badge-secondary">+{cart.length}</div>
