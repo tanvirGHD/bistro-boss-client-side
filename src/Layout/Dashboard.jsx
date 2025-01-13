@@ -39,7 +39,7 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/reservation">
+            <NavLink to="/dashboard/addItems">
               <FaRegCalendarAlt className="inline-block mr-2" />
               add items
             </NavLink>
