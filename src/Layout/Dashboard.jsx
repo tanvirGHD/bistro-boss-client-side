@@ -45,7 +45,7 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/payment-history">
+            <NavLink to="/dashboard/manageItems">
               <FaList className="inline-block mr-2" ></FaList>
               manage items
             </NavLink>
