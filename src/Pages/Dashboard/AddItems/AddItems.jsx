@@ -1,32 +1,71 @@
 import { useForm } from "react-hook-form";
 import { FaUtensils } from "react-icons/fa";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
 const AddItems = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+
   const onSubmit = async (data) => {
-    console.log(data)
-    // image upload to imgbb and then get and url
-    const imageFile = {image: data.image[0]}
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+    console.log("Form data:", data);
+
+    // Create FormData for image upload
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+
+    try {
+      // Upload image to ImgBB
+      const res = await axiosPublic.post(image_hosting_api, formData, {
         headers: {
-            'content-type': 'multipart/form-data'
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (res.data.success) {
+        // Prepare menu item data
+        const menuItem = {
+          name: data.name,
+          category: data.category,
+          price: parseFloat(data.price),
+          recipe: data.recipe,
+          image: res.data.data.display_url,
+        };
+
+        // Add menu item to the server
+        const menuRes = await axiosSecure.post("/menu", menuItem);
+        console.log("Menu response:", menuRes.data);
+
+        if (menuRes.data.insertedId) {
+          reset();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${data.name} is added to the menu.`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
-    });
-    console.log(res.data);
-  }
+      }
+    } catch (error) {
+      console.error("Error uploading image or adding menu item:", error.response || error.message);
+    }
+  };
 
   return (
     <div>
       <div className="text-center md:w-3/12 mx-auto my-10">
-        <p className="text-lg text-yellow-400 ">---What's new?---</p>
+        <p className="text-lg text-yellow-400">---What's new?---</p>
         <h3 className="text-3xl border-y-2 py-2">ADD AN ITEM</h3>
       </div>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Recipe Name */}
           <div className="form-control w-full my-6">
             <label className="label">
               <span className="label-text">Recipe Name*</span>
@@ -39,8 +78,9 @@ const AddItems = () => {
               className="input input-bordered w-full"
             />
           </div>
+
           <div className="flex gap-6">
-            {/* category */}
+            {/* Category */}
             <div className="form-control w-full my-6">
               <label className="label">
                 <span className="label-text">Category*</span>
@@ -61,7 +101,7 @@ const AddItems = () => {
               </select>
             </div>
 
-            {/* price */}
+            {/* Price */}
             <div className="form-control w-full my-6">
               <label className="label">
                 <span className="label-text">Price*</span>
@@ -74,7 +114,8 @@ const AddItems = () => {
               />
             </div>
           </div>
-          {/* recipe details */}
+
+          {/* Recipe Details */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Recipe Details</span>
@@ -82,10 +123,11 @@ const AddItems = () => {
             <textarea
               {...register("recipe")}
               className="textarea textarea-bordered h-24"
-              placeholder="Bio"
+              placeholder="Recipe Details"
             ></textarea>
           </div>
 
+          {/* Image Upload */}
           <div className="form-control w-full my-6">
             <input
               {...register("image", { required: true })}
@@ -94,8 +136,9 @@ const AddItems = () => {
             />
           </div>
 
+          {/* Submit Button */}
           <button className="btn">
-            Add Item <FaUtensils className="ml-4"></FaUtensils>
+            Add Item <FaUtensils className="ml-4" />
           </button>
         </form>
       </div>

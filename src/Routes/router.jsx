@@ -60,7 +60,7 @@ import AdminRoute from "./AdminRoute";
           path: 'addItems',
           element: <AdminRoute><AddItems></AddItems></AdminRoute>
         },
-        {
+        { 
           path: 'users', 
           element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
         }
