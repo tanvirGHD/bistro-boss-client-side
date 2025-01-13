@@ -13,12 +13,13 @@ import {
   FaBook,  
 } from "react-icons/fa";
 import useCart from "../Hooks/UseCart";
+import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart();
 
   // TODO: get isAdmin value from the database
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="flex">
