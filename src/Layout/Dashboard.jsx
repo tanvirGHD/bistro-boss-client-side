@@ -78,7 +78,7 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/payment-history">
+            <NavLink to="/dashboard/paymentHistory">
               <FaHistory className="inline-block mr-2" />
               Payment History
             </NavLink>

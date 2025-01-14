@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useMenu from "../../../hooks/useMenu";
+import { Link } from "react-router-dom";
 
 const ManageItems = () => {
   const [menu, isPending, refetch] = useMenu();
@@ -64,9 +65,11 @@ const ManageItems = () => {
                 <td className="p-3">{item.name}</td>
                 <td className="p-3">${item.price.toFixed(2)}</td>
                 <td className="p-3 flex justify-center gap-2">
+                  <Link to={`/dashboard/updateItem/${item._id}`}>
                   <button className="btn btn-sm bg-yellow-500 text-white px-4 py-2 rounded shadow-md">
                     Update
                   </button>
+                  </Link>
                   <button
                     onClick={() => handleDeleteItem(item)}
                     className="btn btn-sm bg-red-500 text-white px-4 py-2 rounded shadow-md"

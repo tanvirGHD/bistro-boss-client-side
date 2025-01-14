@@ -3,6 +3,7 @@ import useCart from "../../../Hooks/UseCart";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -45,9 +46,11 @@ const Cart = () => {
         <h2 className="text-3xl font-bold">
           Total Price: ${totalPrice.toFixed(2)}
         </h2>
-        <button className="text-xl font-bold bg-[#D1A054] p-2 rounded-lg">
+        <Link to='/dashboard/payment'>
+        <button disabled={!cart.length} className="text-xl font-bold bg-[#D1A054] p-2 rounded-lg">
           Pay
         </button>
+        </Link>
       </div>
 
       {/* Table */}
